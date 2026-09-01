@@ -1,0 +1,3 @@
+com\example\samplespringbootdeploy\SampleSpringbootDeployApplicationTests.class
+com\example\samplespringbootdeploy\service\EmployeeServiceImplTest.class
+com\example\samplespringbootdeploy\controller\EmployeeControllerTest.class
