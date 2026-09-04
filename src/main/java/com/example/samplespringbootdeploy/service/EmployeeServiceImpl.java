@@ -1,6 +1,7 @@
 package com.example.samplespringbootdeploy.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + id));
 
+        return mapToResponse(employee);
+    }
+
+    @Override
+    public List<EmployeeResponseDto> getAllEmployees() {
+        return employeeRepository.findAll().stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
+    private EmployeeResponseDto mapToResponse(Employee employee) {
         EmployeeResponseDto response = new EmployeeResponseDto();
         response.setId(employee.getId());
         response.setFirstName(employee.getFirstName());
@@ -38,7 +50,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         response.setJoiningDate(employee.getJoiningDate());
         response.setCreatedAt(employee.getCreatedAt() != null ? employee.getCreatedAt() : LocalDateTime.now());
         response.setUpdatedAt(employee.getUpdatedAt() != null ? employee.getUpdatedAt() : LocalDateTime.now());
-
         return response;
     }
 }
